@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:src="@drawable/googleg_standard_color_18"
+        app:border_color="#FF000000"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_pro_image"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="28dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/pname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter your full name"
+        android:inputType="textPersonName"
+        app:layout_constraintRight_toLeftOf="@+id/pen_icon1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/pen_icon1"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp" />
+
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter your phone number"
+        android:inputType="phone"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/editText4"
+        android:layout_marginStart="39dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="39dp" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="enter full address"
+        android:inputType="textMultiLine"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintRight_toRightOf="@+id/number"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="56dp"
+        app:layout_constraintLeft_toLeftOf="@+id/number" />
+
+    <ImageButton
+        android:id="@+id/pen_icon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/pencilicon"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/pen_icon2"
+        app:layout_constraintRight_toRightOf="@+id/pen_icon2"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="49dp"
+        app:layout_constraintLeft_toLeftOf="@+id/pen_icon2" />
+
+    <ImageButton
+        android:id="@+id/pen_icon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/pencilicon"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/pen_icon3"
+        app:layout_constraintRight_toRightOf="@+id/pen_icon3"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintLeft_toLeftOf="@+id/pen_icon3" />
+
+    <ImageButton
+        android:id="@+id/pen_icon3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/pencilicon"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText4"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toRightOf="@+id/editText4"
+        android:layout_marginLeft="22dp" />
+
+    <TextView
+        android:id="@+id/TextView_pro_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:text="Change profile picture"
+        app:layout_constraintRight_toLeftOf="@+id/pen_icon1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/pname"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="39dp"
+        android:layout_marginRight="16dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="save"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+</android.support.constraint.ConstraintLayout>

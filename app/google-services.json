@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "590632612226",
+    "firebase_url": "https://betatwo-8fbb5.firebaseio.com",
+    "project_id": "betatwo-8fbb5",
+    "storage_bucket": "betatwo-8fbb5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590632612226:android:654888d5c5faa5c4",
+        "android_client_info": {
+          "package_name": "com.example.nawazshariff.beta_two"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590632612226-fuatpfs9pihqi833a2lgkoqdgethql14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7SPd1U8Qh0ASjb00BD8RS1peWgwyoz5s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
