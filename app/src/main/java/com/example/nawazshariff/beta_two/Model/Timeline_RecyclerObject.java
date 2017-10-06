@@ -11,6 +11,9 @@ public class Timeline_RecyclerObject implements Serializable {
     public String name;
     public float stars;
 
+    public Timeline_RecyclerObject()
+    {}
+
     public Timeline_RecyclerObject(double cost, String name, float stars) {
         this.cost = cost;
         this.name = name;

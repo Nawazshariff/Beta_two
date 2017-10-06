@@ -5,4 +5,11 @@ package com.example.nawazshariff.beta_two;
  */
 
 public class Constants {
+
+    public static final String PACKAGE_ID = "com.example.nawazshariff.beta_two";
+
+
+    //SharedPreferences names
+    public static final String COMPLETE_PROFILE=PACKAGE_ID+".complete_profile";
+
 }

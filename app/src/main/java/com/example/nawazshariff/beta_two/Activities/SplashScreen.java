@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.nawazshariff.beta_two.Model.Timeline_BusObject;
 import com.example.nawazshariff.beta_two.Model.Timeline_RecyclerObject;
 import com.example.nawazshariff.beta_two.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by nawazshariff on 27-09-2017.
@@ -29,16 +27,19 @@ import java.util.List;
 public class SplashScreen extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
-    DatabaseReference timelineRef;
-    public ArrayList<Timeline_RecyclerObject> currentItems = new ArrayList<Timeline_RecyclerObject>();
+
+
 
     private static String TAG = "splash screen";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-        timelineRef = FirebaseDatabase.getInstance().getReference();
+
+
+
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
 
@@ -57,8 +58,7 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }
         };
-        //get data from firebase
-        getDataFromFirebase(timelineRef);
+
     }
 
     private void delay(final FirebaseUser user) {
@@ -72,12 +72,13 @@ public class SplashScreen extends AppCompatActivity {
                     Intent mIntent;
                     if (user != null) {
                         //TODO update this according to state
-                        Log.d(TAG, "obtained items " + currentItems.size());
+
                         mIntent = new Intent(SplashScreen.this, Timeline.class);
-                        mIntent.putExtra("items", (Serializable) currentItems);
+
 
                     } else {
                         mIntent = new Intent(SplashScreen.this, MainActivity.class);
+
                     }
                     startActivity(mIntent);
                     finish();
@@ -106,24 +107,5 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
-    public void getDataFromFirebase(DatabaseReference timelineRef) {
 
-        timelineRef.child("bus_data").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot currentSnap : dataSnapshot.getChildren()) {
-                    Timeline_BusObject busObject = currentSnap.getValue(Timeline_BusObject.class);
-                    Log.d(TAG, "getting data" + busObject.getName() + " " + busObject.getCost() + " " + busObject.getStars());
-                    currentItems.add(new Timeline_RecyclerObject(busObject.getCost(), busObject.getName(), busObject.getStars()));
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
 }

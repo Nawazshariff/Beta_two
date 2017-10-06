@@ -3,6 +3,10 @@ package com.example.nawazshariff.beta_two.Activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,14 +24,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.example.nawazshariff.beta_two.Adapters.Timeline_RecyclerViewAdapter;
 import com.example.nawazshariff.beta_two.Model.Timeline_RecyclerObject;
 import com.example.nawazshariff.beta_two.R;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,8 +55,8 @@ public class Timeline extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     AlertDialog alertDialog1;
-    public ArrayList<Timeline_RecyclerObject> sortItems,actualItems;
-    public ArrayList<Timeline_RecyclerObject> currentItems=new ArrayList<Timeline_RecyclerObject>();
+    public ArrayList<Timeline_RecyclerObject> sortItems;
+    public ArrayList<Timeline_RecyclerObject> currentItems = new ArrayList<Timeline_RecyclerObject>();
     Timeline_RecyclerViewAdapter rcAdapter;
     RecyclerView rView;
 
@@ -63,18 +73,17 @@ public class Timeline extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timeline);
+
         timelineRef = FirebaseDatabase.getInstance().getReference();
 
         setTitle(null);
         initViews();
 
-        currentItems= (ArrayList<Timeline_RecyclerObject>) getIntent().getSerializableExtra("items");
-
-
+        //get data from firebase
+        getDataFromFirebase(timelineRef);
 
         setProgressBar();
         setHandleForProgressBar();
-
 
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         setNavigationItemSelector();
@@ -89,6 +98,27 @@ public class Timeline extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         setRecyclerView();
+
+
+    }
+
+    public void getDataFromFirebase(DatabaseReference timelineRef) {
+
+        timelineRef.child("bus_data").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot currentSnap : dataSnapshot.getChildren()) {
+                    Timeline_RecyclerObject timelineObject= currentSnap.getValue(Timeline_RecyclerObject.class);
+                    Log.d(TAG, "getting data" + timelineObject.getName() + " " + timelineObject.getCost() + " " + timelineObject.getStars());
+                    currentItems.add(new Timeline_RecyclerObject(timelineObject.getCost(), timelineObject.getName(), timelineObject.getStars()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "error in retrieving data", databaseError.toException());
+            }
+        });
 
 
     }
@@ -134,15 +164,19 @@ public class Timeline extends AppCompatActivity {
 
     private void setRecyclerView() {
 
-        Log.d(TAG,"data from firebase"+currentItems.size());
-        lLayout.setOrientation(LinearLayoutManager.VERTICAL);
         rView.setLayoutManager(lLayout);
-
-        rcAdapter = new Timeline_RecyclerViewAdapter(Timeline.this, currentItems);
-        rView.setAdapter(rcAdapter);
+        FirebaseRecyclerAdapter<Timeline_RecyclerObject, RecyclerViewHolder> adapter = new FirebaseRecyclerAdapter<Timeline_RecyclerObject, RecyclerViewHolder>(
+                Timeline_RecyclerObject.class, R.layout.card_timeline, RecyclerViewHolder.class, timelineRef.child("bus_data").getRef()) {
+            @Override
+            protected void populateViewHolder(RecyclerViewHolder viewHolder, Timeline_RecyclerObject model, int position) {
+                viewHolder.travel_name.setText(model.getName());
+                viewHolder.cost.setText("RS" + model.getCost());
+                viewHolder.ratingBar.setRating(model.getStars());
+            }
+        };
+        rView.setAdapter(adapter);
 
     }
-
 
 
     private void checkStatusOfDrawer() {
@@ -210,6 +244,22 @@ public class Timeline extends AppCompatActivity {
         lLayout = new LinearLayoutManager(Timeline.this);
         rView = findViewById(R.id.recycler_view);
 
+    }
+
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView travel_name;
+        public TextView cost;
+        public RatingBar ratingBar;
+
+        public RecyclerViewHolder(View itemView) {
+            super(itemView);
+            travel_name = itemView.findViewById(R.id.travel_name);
+            cost = itemView.findViewById(R.id.cost_travel);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+            LayerDrawable stars= (LayerDrawable) ratingBar.getProgressDrawable();
+            stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+        }
     }
 
 
@@ -299,5 +349,11 @@ public class Timeline extends AppCompatActivity {
         });
         alertDialog1 = builder.create();
         alertDialog1.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
