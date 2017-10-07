@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button register;
     TextView login, forgotpass;
     String Pass, Email;
-    private  static String AUTH_EXCEPTION="Firebase_auth_exception";
+    private  static String AUTH_EXCEPTION="FireBaseAuthException";
     private  static String TAG="Main activity";
     private FirebaseAuth firebaseAuth;
     FirebaseUser user;

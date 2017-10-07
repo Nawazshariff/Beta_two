@@ -39,7 +39,7 @@ public class Timeline_RecyclerViewHolders extends RecyclerView.ViewHolder implem
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(view.getContext(), "Clicked travel Position = " + getPosition(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(view.getContext(), "Clicked travel Position = " + getPosition(), Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(view.getContext(), Timeline_facility.class);
         intent.putExtra("position",getPosition());
         view.getContext().startActivity(intent);

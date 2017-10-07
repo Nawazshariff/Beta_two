@@ -26,8 +26,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nawazshariff.beta_two.Adapters.Timeline_RecyclerViewAdapter;
+import com.example.nawazshariff.beta_two.Constants;
 import com.example.nawazshariff.beta_two.Model.Timeline_RecyclerObject;
 import com.example.nawazshariff.beta_two.R;
 
@@ -63,7 +65,6 @@ public class Timeline extends AppCompatActivity {
     DatabaseReference timelineRef;
     public static String TAG = "Timeline";
     ActionBarDrawerToggle actionBarDrawerToggle;
-    int recyclerSize;
     Handler handle;
 
 
@@ -104,11 +105,11 @@ public class Timeline extends AppCompatActivity {
 
     public void getDataFromFirebase(DatabaseReference timelineRef) {
 
-        timelineRef.child("bus_data").addListenerForSingleValueEvent(new ValueEventListener() {
+        timelineRef.child(Constants.BUS_ROOT).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot currentSnap : dataSnapshot.getChildren()) {
-                    Timeline_RecyclerObject timelineObject= currentSnap.getValue(Timeline_RecyclerObject.class);
+                    Timeline_RecyclerObject timelineObject = currentSnap.getValue(Timeline_RecyclerObject.class);
                     Log.d(TAG, "getting data" + timelineObject.getName() + " " + timelineObject.getCost() + " " + timelineObject.getStars());
                     currentItems.add(new Timeline_RecyclerObject(timelineObject.getCost(), timelineObject.getName(), timelineObject.getStars()));
                 }
@@ -209,8 +210,8 @@ public class Timeline extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.profile:
                         Log.i("profile", "clicked");
-                        Intent intent1 = new Intent(Timeline.this, ProfileTimeline.class);
-                        startActivity(intent1);
+                        Toast.makeText(Timeline.this,"profile was clicked",Toast.LENGTH_SHORT).show();
+
 
                         return true;
 
@@ -257,8 +258,18 @@ public class Timeline extends AppCompatActivity {
             travel_name = itemView.findViewById(R.id.travel_name);
             cost = itemView.findViewById(R.id.cost_travel);
             ratingBar = itemView.findViewById(R.id.ratingBar);
-            LayerDrawable stars= (LayerDrawable) ratingBar.getProgressDrawable();
+            LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
             stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(view.getContext(), "Clicked travel Position = " + getPosition(), Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(view.getContext(), Timeline_facility.class);
+                    intent.putExtra("position",getPosition());
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 
@@ -294,61 +305,65 @@ public class Timeline extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int item) {
 
-                switch (item) {
-                    case 0:
-                        // Toast.makeText(Timeline.this,"lower to higher",Toast.LENGTH_SHORT).show();
-                        sortItems = currentItems;
-                        Collections.sort(sortItems, new Comparator<Timeline_RecyclerObject>() {
-                            @Override
-                            public int compare(Timeline_RecyclerObject timeline_recyclerObject, Timeline_RecyclerObject t1) {
-                                if (timeline_recyclerObject.getCost() == t1.getCost())
-                                    return 0;
-                                else if (timeline_recyclerObject.getCost() < t1.getCost())
-                                    return -1;
-                                else
-                                    return 1;
-                            }
-                        });
-                        rcAdapter = new Timeline_RecyclerViewAdapter(Timeline.this, sortItems);
-                        rView.setAdapter(rcAdapter);
-
-                        break;
-                    case 1:
-                        // Toast.makeText(Timeline.this,"lower to higher",Toast.LENGTH_SHORT).show();
-                        sortItems = currentItems;
-                        Collections.sort(sortItems, new Comparator<Timeline_RecyclerObject>() {
-                            @Override
-                            public int compare(Timeline_RecyclerObject timeline_recyclerObject, Timeline_RecyclerObject t1) {
-                                if (t1.getCost() == timeline_recyclerObject.getCost())
-                                    return 0;
-                                else if (t1.getCost() < timeline_recyclerObject.getCost())
-                                    return -1;
-                                else
-                                    return 1;
-                            }
-                        });
-                        rcAdapter = new Timeline_RecyclerViewAdapter(Timeline.this, sortItems);
-                        rView.setAdapter(rcAdapter);
-
-                        break;
-                    case 2:
-                        sortItems = currentItems;
-                        Collections.sort(sortItems, new Comparator<Timeline_RecyclerObject>() {
-                            @Override
-                            public int compare(Timeline_RecyclerObject timeline_recyclerObject, Timeline_RecyclerObject t1) {
-                                return timeline_recyclerObject.getName().compareTo(t1.getName());
-                            }
-                        });
-                        rcAdapter = new Timeline_RecyclerViewAdapter(Timeline.this, sortItems);
-                        rView.setAdapter(rcAdapter);
-
-                        break;
-                }
+                onClickRadioButton(item);
                 alertDialog1.dismiss();
             }
         });
         alertDialog1 = builder.create();
         alertDialog1.show();
+    }
+
+    private void onClickRadioButton(int item) {
+        switch (item) {
+            case 0:
+                // Toast.makeText(Timeline.this,"lower to higher",Toast.LENGTH_SHORT).show();
+                sortItems = currentItems;
+                Collections.sort(sortItems, new Comparator<Timeline_RecyclerObject>() {
+                    @Override
+                    public int compare(Timeline_RecyclerObject timeline_recyclerObject, Timeline_RecyclerObject t1) {
+                        if (timeline_recyclerObject.getCost() == t1.getCost())
+                            return 0;
+                        else if (timeline_recyclerObject.getCost() < t1.getCost())
+                            return -1;
+                        else
+                            return 1;
+                    }
+                });
+                rcAdapter = new Timeline_RecyclerViewAdapter(Timeline.this, sortItems);
+                rView.setAdapter(rcAdapter);
+
+                break;
+            case 1:
+                // Toast.makeText(Timeline.this,"lower to higher",Toast.LENGTH_SHORT).show();
+                sortItems = currentItems;
+                Collections.sort(sortItems, new Comparator<Timeline_RecyclerObject>() {
+                    @Override
+                    public int compare(Timeline_RecyclerObject timeline_recyclerObject, Timeline_RecyclerObject t1) {
+                        if (t1.getCost() == timeline_recyclerObject.getCost())
+                            return 0;
+                        else if (t1.getCost() < timeline_recyclerObject.getCost())
+                            return -1;
+                        else
+                            return 1;
+                    }
+                });
+                rcAdapter = new Timeline_RecyclerViewAdapter(Timeline.this, sortItems);
+                rView.setAdapter(rcAdapter);
+
+                break;
+            case 2:
+                sortItems = currentItems;
+                Collections.sort(sortItems, new Comparator<Timeline_RecyclerObject>() {
+                    @Override
+                    public int compare(Timeline_RecyclerObject timeline_recyclerObject, Timeline_RecyclerObject t1) {
+                        return timeline_recyclerObject.getName().compareTo(t1.getName());
+                    }
+                });
+                rcAdapter = new Timeline_RecyclerViewAdapter(Timeline.this, sortItems);
+                rView.setAdapter(rcAdapter);
+
+                break;
+        }
     }
 
     @Override

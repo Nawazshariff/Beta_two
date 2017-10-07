@@ -29,7 +29,6 @@ public class SplashScreen extends AppCompatActivity {
     FirebaseAuth.AuthStateListener authStateListener;
 
 
-
     private static String TAG = "splash screen";
 
 
@@ -37,8 +36,6 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
-
 
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
