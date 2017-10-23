@@ -10,4 +10,28 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="MyCardViewStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="cardCornerRadius">2dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="contentPaddingBottom">24dp</item>
+        <item name="contentPaddingTop">24dp</item>
+        <item name="contentPaddingLeft">16dp</item>
+        <item name="contentPaddingRight">16dp</item>
+        <item name="cardBackgroundColor">@color/card_color</item>
+    </style>
+
+
+    <!--Floating label text style-->
+    <style name="MyHintText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/text_hint_color</item>
+    </style>
+
+    <!--Input field style-->
+    <style name="MyEditText" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/text_view_normal</item>
+        <item name="colorControlActivated">@color/text_view_activated</item>
+
+    </style>
+
+
 </resources>

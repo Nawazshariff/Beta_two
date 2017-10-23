@@ -36,6 +36,15 @@
             android:label="@string/app_name">
 
         </activity>
+        <activity android:name=".Activities.TimelineProfile"
+            android:label="@string/app_name">
+
+        </activity>
+        <activity android:name=".Activities.InfoPage"
+            android:label="@string/app_name">
+
+        </activity>
+
     </application>
 
 </manifest>

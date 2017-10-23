@@ -22,7 +22,7 @@ import com.example.nawazshariff.beta_two.R;
 
 public class Timeline_RecyclerViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public TextView travel_name;
+    public TextView travel_name,date;
     public  TextView cost;
     public RatingBar ratingBar;
 
@@ -32,8 +32,9 @@ public class Timeline_RecyclerViewHolders extends RecyclerView.ViewHolder implem
         travel_name = (TextView)itemView.findViewById(R.id.travel_name);
         cost=itemView.findViewById(R.id.cost_travel);
         ratingBar=itemView.findViewById(R.id.ratingBar);
+        date=itemView.findViewById(R.id.date_tv);
         LayerDrawable stars= (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(2).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         itemView.setOnClickListener(this);
     }
 

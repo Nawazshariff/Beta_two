@@ -52,12 +52,12 @@
 
         <android.support.design.widget.NavigationView
             android:id="@+id/navigation_view"
-            android:layout_height="match_parent"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:background="#A6A6A6"
             app:headerLayout="@layout/header_timeline"
-            app:menu="@menu/drawer"
-            />
+            app:menu="@menu/drawer" />
     </android.support.v4.widget.DrawerLayout>
 
 

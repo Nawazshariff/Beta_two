@@ -3,6 +3,7 @@ package com.example.nawazshariff.beta_two.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button register;
     TextView login, forgotpass;
     String Pass, Email;
-    private  static String AUTH_EXCEPTION="FireBaseAuthException";
-    private  static String TAG="Main activity";
+    private static String AUTH_EXCEPTION = "FireBaseAuthException";
+    private static String TAG = "Main activity";
     private FirebaseAuth firebaseAuth;
     FirebaseUser user;
     private ProgressDialog progressDialog;
@@ -75,26 +76,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.e(TAG,"register : not signed out");
+                    Log.e(TAG, "register : user signed in");
                     Intent intent = new Intent(MainActivity.this, Timeline.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
                 } else {
-                    Log.e(TAG,"register : user signed out");
+                    Log.e(TAG, "register : user signed out");
                 }
             }
         };
     }
 
     private void initViews() {
-        password = findViewById(R.id.password);
-        register = findViewById(R.id.register);
-        login = findViewById(R.id.login);
-        email = findViewById(R.id.email);
-        forgotpass = findViewById(R.id.forgotPass);
+        password = (EditText) findViewById(R.id.password);
+        register = (Button) findViewById(R.id.register);
+        login = (TextView) findViewById(R.id.login);
+        email = (EditText) findViewById(R.id.email);
+        forgotpass = (TextView) findViewById(R.id.forgotPass);
         progressDialog = new ProgressDialog(this);
         forgotpass.setVisibility(View.GONE);
+
+
     }
 
 
@@ -116,11 +119,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog.setMessage("Registering Please Wait...");
         progressDialog.show();
         //creating a new user
-        createUserInFirebase();
+        createUserInFireBase();
 
     }
 
-    private void createUserInFirebase() {
+    private void createUserInFireBase() {
         firebaseAuth.createUserWithEmailAndPassword(Email, Pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -129,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (task.isSuccessful()) {
                             //display some message here
                             Toast.makeText(MainActivity.this, "Successfully registered", Toast.LENGTH_LONG).show();
-                            emailVerification();
+                            sendEmailVerificationToUser();
 
                         } else {
                             //display some message here
@@ -213,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    public void emailVerification() {
+    public void sendEmailVerificationToUser() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
@@ -244,12 +247,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // user is verified, so you can finish this activity or send user to activity which you want.
 
             Toast.makeText(MainActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-            if(mainActivityPref.getBoolean("isProfileComplete",true)){
+            if (mainActivityPref.getBoolean("isProfileComplete", true)) {
                 intent = new Intent(MainActivity.this, CompleteProfile.class);
-            }
-            else
-            {
-                intent = new Intent(MainActivity.this, Timeline.class);
+            } else {
+                intent = new Intent(MainActivity.this, InfoPage.class);
             }
 
             startActivity(intent);

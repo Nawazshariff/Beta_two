@@ -8,4 +8,10 @@
     <string name="action_new">Settings</string>
     <string name="logo_desc">App logo</string>
     <string name="spinner_title">Select Category</string>
+    <string name="title_edit_profile">Edit Profile</string>
+    <string name="action_hide">Hide Panel</string>
+    <string name="action_show">Show Panel</string>
+    <string name="action_anchor_enable">Enable Anchor Point</string>
+    <string name="action_anchor_disable">Disable Anchor Point</string>
+    <string name="travel_info">An airline is a company that provides air transport services......</string>
 </resources>

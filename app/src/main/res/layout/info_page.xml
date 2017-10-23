@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="0dp"
+        android:layout_height="210dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/info_page_top_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@mipmap/haj" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_image"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="17dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/umrah"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Umrah"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/haj"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Haj"
+                        android:textSize="15sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="Select"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/umrah"
+                        android:layout_toEndOf="@+id/umrah"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginStart="70dp" />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView1"
+        app:layout_constraintVertical_bias="0.029">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/boarding_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="21dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="29dp"
+                android:text="Boarding Date : " />
+
+            <EditText
+                android:id="@+id/boarding_date_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Select calender icon"
+                android:layout_alignLeft="@+id/boarding_date_tv"
+                android:layout_alignStart="@+id/boarding_date_tv"
+                android:layout_below="@+id/boarding_date_tv"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:inputType="date" />
+
+            <ImageButton
+                android:id="@+id/boarding_date_imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/boarding_date_et"
+
+                android:layout_marginLeft="41dp"
+                android:layout_marginStart="41dp"
+                android:layout_toEndOf="@+id/boarding_date_et"
+                android:layout_toRightOf="@+id/boarding_date_et"
+                app:srcCompat="@mipmap/calender" />
+
+            <TextView
+                android:id="@+id/arrival_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/boarding_date_et"
+                android:layout_alignStart="@+id/boarding_date_et"
+                android:layout_below="@+id/boarding_date_imageButton"
+                android:layout_marginTop="20dp"
+                android:text="Arriving Date : " />
+
+            <EditText
+                android:id="@+id/arrival_date_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/arrival_date_tv"
+                android:layout_alignStart="@+id/arrival_date_tv"
+                android:layout_below="@+id/arrival_date_tv"
+                android:layout_marginTop="15dp"
+                android:hint="Select calender icon"
+                android:ems="10"
+                android:inputType="date" />
+
+            <ImageButton
+                android:id="@+id/arrival_date_imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignLeft="@+id/boarding_date_imageButton"
+                android:layout_alignStart="@+id/boarding_date_imageButton"
+                android:layout_alignTop="@+id/arrival_date_et"
+                app:srcCompat="@mipmap/calender" />
+
+            <TextView
+                android:id="@+id/total_members_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/arrival_date_et"
+                android:layout_alignStart="@+id/arrival_date_et"
+                android:layout_below="@+id/arrival_date_imageButton"
+                android:layout_marginTop="20dp"
+                android:text="Total number of members : " />
+
+            <TextView
+                android:id="@+id/adults_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/total_members_tv"
+                android:layout_alignStart="@+id/total_members_tv"
+                android:layout_below="@+id/total_members_tv"
+                android:layout_marginTop="21dp"
+                android:text="Adults" />
+
+                <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/adults_et"
+                    android:inputType="number"
+                    android:layout_below="@+id/total_members_tv"
+                    android:layout_alignRight="@+id/boarding_date_tv"
+                    android:layout_alignEnd="@+id/boarding_date_tv" />
+
+            <TextView
+                android:id="@+id/minor_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/adults_et"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/adults_et"
+                android:layout_toRightOf="@+id/adults_et"
+                android:text="Minors"
+                android:layout_alignTop="@+id/adults_tv" />
+
+            <EditText
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/minor_et"
+                android:inputType="number"
+                android:layout_below="@+id/total_members_tv"
+                android:layout_alignRight="@+id/arrival_date_et"
+                android:layout_alignEnd="@+id/arrival_date_et" />
+
+            <TextView
+                android:id="@+id/overall_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:layout_alignBottom="@+id/minor_et"
+                android:layout_toRightOf="@+id/minor_et"
+                android:layout_toEndOf="@+id/minor_et"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_alignTop="@+id/minor_tv" />
+
+            <TextView
+                android:id="@+id/print_total_tv"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/overall_tv"
+                android:layout_alignBottom="@+id/overall_tv"
+                android:layout_marginLeft="25dp"
+                android:layout_toEndOf="@+id/overall_tv"
+
+                android:layout_toRightOf="@+id/overall_tv"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="12dp"
+                android:background="@color/color_primary"
+                android:text="Submit"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

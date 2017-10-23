@@ -111,7 +111,7 @@ public class Timeline extends AppCompatActivity {
                 for (DataSnapshot currentSnap : dataSnapshot.getChildren()) {
                     Timeline_RecyclerObject timelineObject = currentSnap.getValue(Timeline_RecyclerObject.class);
                     Log.d(TAG, "getting data" + timelineObject.getName() + " " + timelineObject.getCost() + " " + timelineObject.getStars());
-                    currentItems.add(new Timeline_RecyclerObject(timelineObject.getCost(), timelineObject.getName(), timelineObject.getStars()));
+                    currentItems.add(new Timeline_RecyclerObject(timelineObject.getCost(),timelineObject.getDate(), timelineObject.getName(), timelineObject.getStars()));
                 }
             }
 
@@ -173,6 +173,7 @@ public class Timeline extends AppCompatActivity {
                 viewHolder.travel_name.setText(model.getName());
                 viewHolder.cost.setText("RS" + model.getCost());
                 viewHolder.ratingBar.setRating(model.getStars());
+                viewHolder.date_tv.setText(model.getDate());
             }
         };
         rView.setAdapter(adapter);
@@ -204,21 +205,31 @@ public class Timeline extends AppCompatActivity {
                 //Checking if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked()) menuItem.setChecked(false);
                 else menuItem.setChecked(true);
-
+                Intent intent;
                 //Closing drawer on item click
                 drawerLayout.closeDrawers();
                 switch (menuItem.getItemId()) {
                     case R.id.profile:
                         Log.i("profile", "clicked");
-                        Toast.makeText(Timeline.this,"profile was clicked",Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(Timeline.this,"profile was clicked",Toast.LENGTH_SHORT).show();
+                         intent=new Intent(Timeline.this,TimelineProfile.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.notifications:
+                        Toast.makeText(Timeline.this,"notification was clicked",Toast.LENGTH_SHORT).show();
+                        return true;
 
-
+                    case R.id.help:
+                        Toast.makeText(Timeline.this,"help was clicked",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.history:
+                        Toast.makeText(Timeline.this,"history was clicked",Toast.LENGTH_SHORT).show();
                         return true;
 
                     case R.id.logout:
                         Log.i("Log out", "clicked");
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(Timeline.this, MainActivity.class);
+                         intent = new Intent(Timeline.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                         return true;
@@ -232,18 +243,18 @@ public class Timeline extends AppCompatActivity {
 
     private void initViews() {
         // Initializing Toolbar and setting it as the actionbar
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         progressDialog = new ProgressDialog(this);
 
         //Initializing NavigationView
-        navigationView = findViewById(R.id.navigation_view);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         // Initializing Drawer Layout and ActionBarToggle
-        drawerLayout = findViewById(R.id.drawer);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         lLayout = new LinearLayoutManager(Timeline.this);
-        rView = findViewById(R.id.recycler_view);
+        rView = (RecyclerView) findViewById(R.id.recycler_view);
 
     }
 
@@ -252,14 +263,16 @@ public class Timeline extends AppCompatActivity {
         public TextView travel_name;
         public TextView cost;
         public RatingBar ratingBar;
+        public TextView date_tv;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             travel_name = itemView.findViewById(R.id.travel_name);
             cost = itemView.findViewById(R.id.cost_travel);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+            date_tv=itemView.findViewById(R.id.date_tv);
             LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-            stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            stars.getDrawable(2).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

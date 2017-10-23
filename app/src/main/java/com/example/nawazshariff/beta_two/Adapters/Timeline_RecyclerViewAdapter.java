@@ -38,6 +38,7 @@ public class Timeline_RecyclerViewAdapter extends RecyclerView.Adapter<Timeline_
         holder.travel_name.setText(itemList.get(position).getName());
         holder.cost.setText("INR "+itemList.get(position).getCost());
         holder.ratingBar.setRating(itemList.get(position).getStars());
+        holder.date.setText(itemList.get(position).getDate());
     }
 
     @Override

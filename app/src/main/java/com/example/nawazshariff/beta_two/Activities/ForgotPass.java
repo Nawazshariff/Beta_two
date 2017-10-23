@@ -29,8 +29,8 @@ public class ForgotPass extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgotpass);
-        r_email=findViewById(R.id.reset_email_et);
-        reset=findViewById(R.id.reset_button);
+        r_email= (EditText) findViewById(R.id.reset_email_et);
+        reset= (Button) findViewById(R.id.reset_button);
         firebaseAuth = FirebaseAuth.getInstance();
         reset.setOnClickListener(this);
     }

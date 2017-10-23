@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_primary"
-
+    android:background="@mipmap/login2"
     tools:context=".Activities.MainActivity"
     tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="8dp">
@@ -23,7 +22,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/aeroplane" />
+        app:srcCompat="@mipmap/aeroplane" />
 
     <TextView
         android:id="@+id/bookTextView"
@@ -50,12 +49,14 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
+            app:hintTextAppearance="@style/MyHintText"
             app:layout_constraintHorizontal_bias="0.501">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/email"
+                android:theme="@style/MyEditText"
                 android:hint="Enter Your Email"
                 />
 
@@ -68,12 +69,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/input_layout_email"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintRight_toRightOf="parent">
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/MyEditText"
             android:hint="Enter Your Password" />
 
     </android.support.design.widget.TextInputLayout>
@@ -108,7 +111,7 @@
         android:id="@+id/forgotPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="forgot passowrd?Click here!!"
+        android:text="forgot password?Click here!!"
         app:layout_constraintTop_toBottomOf="@+id/login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

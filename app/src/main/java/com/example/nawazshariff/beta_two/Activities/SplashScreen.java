@@ -70,7 +70,7 @@ public class SplashScreen extends AppCompatActivity {
                     if (user != null) {
                         //TODO update this according to state
 
-                        mIntent = new Intent(SplashScreen.this, Timeline.class);
+                        mIntent = new Intent(SplashScreen.this, InfoPage.class);
 
 
                     } else {

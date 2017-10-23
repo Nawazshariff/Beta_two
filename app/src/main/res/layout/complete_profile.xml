@@ -3,39 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/color_primary"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/card_color">
 
 
-    <TextView
-        android:id="@+id/text_profile"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/complete_profile_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"
-        android:text="Complete Your Profile"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="30sp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/complete_profile_input_name"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_profile">
+        app:layout_constraintTop_toBottomOf="@+id/complete_profile_toolbar">
 
         <EditText
             android:id="@+id/complete_profile_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/MyEditText"
             android:hint="Enter your user name" />
 
     </android.support.design.widget.TextInputLayout>
@@ -46,6 +43,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/complete_profile_input_name">
@@ -54,6 +52,7 @@
             android:id="@+id/complete_profile_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/MyEditText"
             android:hint="Enter your contact number" />
 
     </android.support.design.widget.TextInputLayout>
@@ -63,6 +62,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/complete_profile_input_number">
@@ -74,6 +74,7 @@
             android:ems="10"
             android:hint="Enter your full addresss"
             android:inputType="textMultiLine"
+            android:theme="@style/MyEditText"
             tools:layout_editor_absoluteX="65dp"
             tools:layout_editor_absoluteY="362dp" />
     </android.support.design.widget.TextInputLayout>
@@ -88,7 +89,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:text="Identity Proof :"
-        android:textColor="@android:color/holo_red_dark"
+
         android:textSize="20sp"
         app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -110,11 +111,13 @@
         android:id="@+id/header_id_proof"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+
         android:layout_marginTop="19dp"
         android:text="Upload the selected image with Id number on it"
-        android:textColor="@android:color/holo_red_dark"
         android:textSize="17sp"
         app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -126,8 +129,10 @@
         android:layout_width="220dp"
         android:layout_height="170dp"
 
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="11dp"
         app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -138,6 +143,7 @@
         android:id="@+id/browse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="26dp"
         android:onClick="browseGallery"
@@ -150,8 +156,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="submitOnClick"
         android:text="submit"

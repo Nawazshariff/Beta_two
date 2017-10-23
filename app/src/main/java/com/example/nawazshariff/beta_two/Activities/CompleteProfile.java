@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -47,36 +48,32 @@ import java.util.List;
  * Created by nawazshariff on 06-10-2017.
  */
 
-public class CompleteProfile extends AppCompatActivity implements  AdapterView.OnItemSelectedListener {
+public class CompleteProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     SharedPreferences completeProfilePref;
     EditText name, contactNumber, address;
+    Toolbar completeProfileToolBar;
     ImageView idProof;
     Button browseButton, submitDataButton;
     Spinner spinner;
     Uri selectedImage;
-    String item,email,encodedEmail;
-    String uName,uNumber,uAddress;
+    String item, email, encodedEmail;
+    String uName, uNumber, uAddress;
     private static String TAG = "Complete Profile";
     private static int RESULT_LOAD_IMAGE = 1;
-    DatabaseReference completeProfileRef,CurrentUserRef;
+    DatabaseReference completeProfileRef, CurrentUserRef;
     FirebaseUser CurrentUser;
-    StorageReference completeProfileStorage,imageRef;
+    StorageReference completeProfileStorage, imageRef;
     ProgressDialog progressDialogForSubmit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.complete_profile);
-       completeProfileRef =FirebaseDatabase.getInstance().getReference();
-        CurrentUserRef=completeProfileRef.child("users").getRef();
-        CurrentUser= FirebaseAuth.getInstance().getCurrentUser();
-         email=CurrentUser.getEmail();
-       encodedEmail= EncodeEmail(email);
-         completeProfileStorage= FirebaseStorage.getInstance().getReference();
-
-
+        retrieveReferences();
         setSharedPreferences();
         initViews();
+
+
 
         //call for listening to click on spinner items
         spinner.setOnItemSelectedListener(this);
@@ -84,6 +81,19 @@ public class CompleteProfile extends AppCompatActivity implements  AdapterView.O
         //set Spinner for selecting type of id proof
         setSpinnerForIdProof();
 
+    }
+
+    private void retrieveReferences() {
+        completeProfileRef = FirebaseDatabase.getInstance().getReference();
+        //reference for Firebase Recycler View
+        CurrentUserRef = completeProfileRef.child("users").getRef();
+
+        CurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        email = CurrentUser.getEmail();
+        encodedEmail = EncodeEmail(email);
+
+        //reference for storing profile details on firebase
+        completeProfileStorage = FirebaseStorage.getInstance().getReference();
     }
 
     private static String EncodeEmail(String email) {
@@ -110,13 +120,18 @@ public class CompleteProfile extends AppCompatActivity implements  AdapterView.O
     }
 
     private void initViews() {
-        name = findViewById(R.id.complete_profile_name);
-        contactNumber = findViewById(R.id.complete_profile_number);
-        address = findViewById(R.id.complete_profile_addresss);
-        idProof = findViewById(R.id.id_proof_image);
-        browseButton = findViewById(R.id.browse);
-        submitDataButton = findViewById(R.id.submit);
-        spinner = findViewById(R.id.spinner);
+        name = (EditText) findViewById(R.id.complete_profile_name);
+        contactNumber = (EditText) findViewById(R.id.complete_profile_number);
+        address = (EditText) findViewById(R.id.complete_profile_addresss);
+        idProof = (ImageView) findViewById(R.id.id_proof_image);
+        completeProfileToolBar = (Toolbar) findViewById(R.id.complete_profile_toolbar);
+        browseButton = (Button) findViewById(R.id.browse);
+        submitDataButton = (Button) findViewById(R.id.submit);
+        spinner = (Spinner) findViewById(R.id.spinner);
+
+        completeProfileToolBar.setTitle("Complete Your Profile");
+        setSupportActionBar(completeProfileToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -138,37 +153,31 @@ public class CompleteProfile extends AppCompatActivity implements  AdapterView.O
     public void submitOnClick(View view) {
 
 
-            if(TextUtils.isEmpty(name.getText().toString())|| TextUtils.isEmpty(address.getText().toString()) || TextUtils.isEmpty(contactNumber.getText().toString()) || selectedImage==null )
-            {
-                Toast.makeText(CompleteProfile.this,"One of the field is empty",Toast.LENGTH_SHORT).show();
-            }
-            else {
-                uName=name.getText().toString();
-                uNumber=contactNumber.getText().toString();
-                uAddress=address.getText().toString();
-                submitDataToFireBase(uName,uNumber,uAddress,selectedImage);
-            }
-
-
+        if (TextUtils.isEmpty(name.getText().toString()) || TextUtils.isEmpty(address.getText().toString()) || TextUtils.isEmpty(contactNumber.getText().toString()) || selectedImage == null ||item=="Select ID Proof") {
+            Toast.makeText(CompleteProfile.this, "One of the field is empty", Toast.LENGTH_SHORT).show();
+        } else {
+            uName = name.getText().toString();
+            uNumber = contactNumber.getText().toString();
+            uAddress = address.getText().toString();
+            submitDataToFireBase(uName, uNumber, uAddress, selectedImage);
+        }
 
 
     }
 
-    private void submitDataToFireBase(String uName, String uNumber, String uAddress,Uri image) {
-        if(CurrentUser!=null)
-        {
+    private void submitDataToFireBase(String uName, String uNumber, String uAddress, Uri image) {
+        if (CurrentUser != null) {
 
-            User user=new User(uAddress,uNumber,uName,item);
+            User user = new User(uAddress, uNumber, uName, item);
             CurrentUserRef.child(encodedEmail).setValue(user);
-           imageRef= completeProfileStorage.child("images").child(email+"images.jpg");
+            imageRef = completeProfileStorage.child("images").child(email + "images.jpg");
             upLoadImageToFireBase(image);
             Toast.makeText(getApplicationContext(), "Data Uploaded ", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CompleteProfile.this, Timeline.class);
+            Intent intent = new Intent(CompleteProfile.this, InfoPage.class);
             startActivity(intent);
             finish();
-        }else
-        {
-            Toast.makeText(CompleteProfile.this,"unable to upload data",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(CompleteProfile.this, "unable to upload data", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -183,7 +192,7 @@ public class CompleteProfile extends AppCompatActivity implements  AdapterView.O
             @Override
             public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(getApplicationContext(),"Error uploading image",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error uploading image", Toast.LENGTH_SHORT).show();
 
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -199,7 +208,7 @@ public class CompleteProfile extends AppCompatActivity implements  AdapterView.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-             selectedImage = data.getData();
+            selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
             Cursor cursor = getContentResolver().query(selectedImage,
@@ -234,9 +243,10 @@ public class CompleteProfile extends AppCompatActivity implements  AdapterView.O
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-         item = adapterView.getItemAtPosition(i).toString();
+        item = adapterView.getItemAtPosition(i).toString();
 
         // Showing selected spinner item
+        if(!item.contains("Select ID Proof"))
         Toast.makeText(adapterView.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
 
